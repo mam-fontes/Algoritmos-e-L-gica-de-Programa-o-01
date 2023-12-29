@@ -1,0 +1,121 @@
+//Aluno: Matheus Ap. Meletto Fontes//
+//R.A. 20008152-5//
+
+//Descrição da atividade://
+
+//Olá Caro aluno, nossa atividade mapa, será a construção de um algoritmo em pseudocódigo.//
+
+//Atualmente temos diversas formas de vendas, aliadas aos seus respectivos sistemas. Contudo, ainda, existem algumas empresas, geralmente as de pequeno porte que ainda trabalham com vendas “fiado” para alguns clientes. Contudo, este procedimento acaba por criar diversas complicações, que podem levar o empresário a falência. Bom, não iremos analisar estes processos ok.//
+
+//Diante deste fato, imagine a mercearia da família do professor João Messias. Está empresa, ainda não possui sistema de vendas, ou seja, anota todas as vendas no “caderninho”, tanto venda efetuada, quanto venda “fiado”. Este é um problema sério que o João Messias enfrenta toda vez que um cliente deseja pagar, ele deve somar todas as notinhas. João Messias, quer informatizar o sistema da mercearia, e nesta versão, não terá mais as vendas “fiado”. Contudo, necessita realizar um levantamento de vendas que foram efetuadas “fiado” para que possa ser lançado no sistema quando receber as notinhas de seus clientes. //
+
+//O módulo a ser implementado consiste em://
+
+//1 - Uma rotina de cadastro do valor de cada notinha de cada cliente, e neste cadastro deve conter além do valor de cada nota, o nome do cliente. Assuma que existe atualmente 20 clientes no caderninho. Assuma também que, cada cliente tem 10 notinhas.//
+//2 - Uma rotina de impressão de todos os clientes com o seu valor total a pagar. E ao final mostrar um somatório total.//
+//3 - Uma rotina que imprima na tela os valores e o somatório de um cliente em específico.//
+//4 - Criar um menu simples com as 3 opções e uma opção para sair.//
+
+
+
+Algoritmo Fiado da loja do João Messias
+
+	Tipo
+		caderninho =		registro
+			nome:		vetor[1..50] de caractere
+			val_nota:	vetor[1..10] de real
+	Fim_registro
+
+	Procedimento	extrato_analitico (caderno: vetor[1..20] de caderninho)
+
+
+		Var
+			total_cliente:		vetor[1..20] de real
+			vlr_total:		real
+			i, j:			inteiro
+
+		Inicio
+			
+			Escreval ("Segue abaixo os nomes dos devedores, suas pendências e valores totais:")
+			vlr_total <- 0
+			Para i de 1 até 20 passo 1 faça:
+				escreval ("Nome: ", caderno[i].nome)
+				total_cliente <- 0
+					Para j de 1 até 10 passo 1 faça:
+						total_cliente <- total_cliente + caderno[i].val_nota[j]  
+					Fim_para
+				escreval ("Total da dívida: R$", total_cliente)
+				escreval()
+				vlr_total <- vlr_total + total_cliente
+			Fim_para
+			Escreva ("O valor total do "fiado" é: R$", vlr_total)
+	Fim_procedimento
+	
+	
+	Procedimento escolha_cliente (rel_cliente: vetor [1..20] de caderninho)
+	
+		Var
+			total_nota: 		real
+			i, j, cod_cliente:	inteiro
+	
+		Inicio
+	
+			cod_cliente <- 0 
+			total_nota <- 0
+			Escreval ("Segue lista de clientes e seu respectivo código")
+			Para i de 1 até 20 passo 1 faça:
+				Escreval (i," - ",rel_cliente[i].nome)
+			Fim_para
+			Escreval ("Por favor, digite o código do cliente:")
+			Leia (cod_cliente)
+			Se (cod_cliente > 0) E (cod_cliente < 20)
+				i <- cod_cliente
+				Escreval ("Cliente: ", rel_cliente[i].nome)
+				Para j de 1 até 10 passo 1 faça:
+					Escreval ("R$", rel_cliente[i].val_nota[j])
+					total_nota <- total_nota + rel_cliente[i].val_nota[j]
+				Fim_para
+				Escreva ("Total das notas: R$", total_nota)
+			Senão
+				Escreva ("Código incorreto, por gentileza se atente a lista de clientes informada anteriormente.")
+			Fim_se	
+	Fim_procedimento
+
+
+	Var
+
+		fiado:		vetor[1..20] de caderninho
+		i, j:		inteiro
+		menu: 		inteiro
+
+Início
+
+	Repita
+		menu <- 0
+		Escreval ("Olá! Seja bem vindo ao nosso CADERNINHO, o controle de fiado do João Messias!")
+		Escreval ("Por favor, digite a opção desejada:")
+		Escreval ("Para cadastro - digite 1")
+		Escreval ("Para Extrato Geral - digite 2")
+		Escreval ("Para Extrato Específico - digite 3")
+		Escreval ("Para Sair - digite 4")
+		Leia (menu)
+		Caso (menu)
+			Seja 1 faça 
+				Para i de 1 até 20 passo 1 faça:
+					escreva: ("Por favor, informe o nome do devedor", i)
+					leia (fiado[i].nome)	
+						Para j de 1 até 10 passo 1 faça:
+							escreva: ("Informe o valor da nota número ", j)
+							leia: (fiado[i].val_nota[j])
+						Fim_para
+				Fim_para
+			Seja 2 faça extrato_analitico(fiado)
+			Seja 3 faça escolha_cliente(fiado)
+			Seja 4 escreva ("Saindo...") 
+			Senão
+				Escreva ("Opção Inválida, por favor se atente às opções informadas anteriormente e digite a correta")
+		Fim_caso
+	
+	Até_que (menu = 4)
+
+Fim
